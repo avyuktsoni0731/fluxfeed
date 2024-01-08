@@ -34,25 +34,34 @@
   <body>
     <nav>
       <h2 id="website-heading">FluxFeed</h2>
-      <ul>
-        <li><a href="../templates/index.html">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#connect">Connect</a></li>
-        <li><a href="#connect">Contact Me</a></li>
-      </ul>
     </nav>
     <br />
     <div>
       <h1 class="headings">TOP HEADLINES</h1>
     </div>
     <div class="top_container">
-      {% for top_headline in top_headlines %}
+      {% for top_headlines_image in top_headlines_images %}
+      <img src="{{ top_headlines_image }}" class="top_images" width="100%" />
+      {% endfor %} {% for top_headline in top_headlines %}
       <p class="bullets">{{ top_headline }}</p>
-      {% endfor %} {% for top_headline_description in
-      top_headlines_description%}
-      <p class="desciptions">{{ top_headline_description }}</p>
+      {% endfor %} {% for top_headline_description in top_headlines_description
+      %}
+      <p class="descriptions">{{ top_headline_description }}</p>
+      {% endfor %}
+    </div>
+    <hr />
+    <div>
+      <h1 class="headings">LATEST HEADLINES</h1>
+    </div>
+    <div class="latest_news_container">
+      {% for i in range(0, len_latest) %}
+      <div>
+        <p class="bullets latest_bullets">{{ latest_headlines[i] }}</p>
+        <p class="descriptions latest_descriptions">
+          {{ latest_descriptions[i] }}
+        </p>
+      </div>
+      <img src="{{ latest_images[i] }}" class="latest_images" width="200px" />
       {% endfor %}
     </div>
   </body>
