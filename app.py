@@ -5,7 +5,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-
+# news sources
 news_sources = [
     'https://www.nytimes.com/section/world',
     'https://www.nytimes.com/section/world?page=2',
@@ -18,8 +18,14 @@ news_sources = [
     'https://www.nytimes.com/section/world?page=9',
     'https://www.nytimes.com/section/world?page=10'
 ]
+
+news_sources2 = [
+    'https://www.bbc.com/'
+]
+
 url = 'https://www.nytimes.com/section/world'
 
+# for url
 all_headlines = []
 top_headlines = []
 top_headlines_description = []
@@ -28,89 +34,89 @@ latest_images = []
 latest_headlines = []
 latest_descriptions = []
 
+# for url2
+all_images_list = []
+all_headlines_list = []
+news_headlines = []
+sports_headlines = []
+india_news_headlines = []
+authors_picks_headlines = []
+
+# defs of url
 def scrape_headlines(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    headlines = soup.find_all('a', class_='css-1u3p7j1')
+    headlines = soup.find_all('a', class_='css-14u258h')
     return [headline.text.strip() for headline in headlines]
 
 def scrape_descriptions(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
     descriptions = soup.find_all('p', class_='css-tskdi9')
     return [description.text.strip() for description in descriptions]
 
-def scrape_latest_images(url):
-    response = requests.get(url)
+# def of url2
+def scrape_all_images(url2):
+    response = requests.get(url2)
     soup = BeautifulSoup(response.text, 'html.parser')
+    all_images = soup.find_all('img', class_='image-replace')
+    return all_images
 
-    images_latest = soup.find_all('img', class_='css-rq4mmj')
-    return images_latest
-
-def scrape_latest_headlines(url):
-    response = requests.get(url)
+def scrape_all_headlines(url2):
+    response = requests.get(url2)
     soup = BeautifulSoup(response.text, 'html.parser')
+    all_headlines = soup.find_all('a', class_='media__link')
+    return [all_headline.text.strip() for all_headline in all_headlines]
 
-    headlines = soup.find_all('h3', class_='css-1kv6qi e15t083i0')
-    return [headline.text.strip() for headline in headlines]
-
-def scrape_latest_descriptions(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    latest_descriptions = soup.find_all('p', 'css-1pga48a e15t083i1')
-    return [latest_description.text.strip() for latest_description in latest_descriptions]
-
+## preparing response for url
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
+## top headlines images
 images_top_headlines = soup.find_all('img', class_='css-19ucebh')
 for image_tag in images_top_headlines:
     top_headlines_images.append(image_tag['src'])
     
+## top headlines
 for source in news_sources:
     headlines = scrape_headlines(source)
     all_headlines.extend(headlines)
 
+## top headlines descriptions
 description = scrape_descriptions(news_sources[0])
 top_headlines_description.extend(description)
     
 for i in range (0,4):
     top_headlines.append(all_headlines[i])
     
-for source in news_sources:
-    images = scrape_latest_images(source)
-    for image in images:
-        latest_images.append(image['src'])
+#######
 
+## url2
+## all headlines
+for source in news_sources2:
+    all_headline = scrape_all_headlines(source)
+    all_headlines_list.extend(all_headline)
 
-df_latest_images = pd.DataFrame({'col':latest_images})
-df_latest_images.drop_duplicates(inplace=True)
-latest_images = df_latest_images['col'].tolist()
+### News headlines
+for i in range(5, 8):
+    news_headlines.append(all_headlines_list[i])
 
-for source in news_sources:
-    l_headlines = scrape_latest_headlines(source)
-    latest_headlines.extend(l_headlines)
+### Sports headlines
+for i in range(8, 11):
+    sports_headlines.append(all_headlines_list[i])
+    
+### India News headlines
+for i in range(11, 15):
+    india_news_headlines.append(all_headlines_list[i])
 
-df_latest_headlines = pd.DataFrame({'col':latest_headlines})
-df_latest_headlines.drop_duplicates(inplace=True)
-latest_headlines = df_latest_headlines['col'].tolist()
-
-for source in news_sources:
-    l_description = scrape_latest_descriptions(source)
-    latest_descriptions.extend(l_description)
-
-df_latest_description = pd.DataFrame({'col': latest_descriptions})
-df_latest_description.drop_duplicates(inplace=True)
-latest_descriptions = df_latest_description['col'].tolist()
-
+### Author's Picks
+for i in range(16, 22):
+    authors_picks_headlines.append(all_headlines_list[i])
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', top_headlines=top_headlines, top_headlines_description=top_headlines_description, top_headlines_images=top_headlines_images, latest_images=latest_images, latest_headlines=latest_headlines, len_latest=len(latest_headlines), latest_descriptions=latest_descriptions)
+    return render_template('index.html', top_headlines=top_headlines, top_headlines_description=top_headlines_description, top_headlines_images=top_headlines_images)
 
 if __name__ == '__main__':
     app.run(debug=True)

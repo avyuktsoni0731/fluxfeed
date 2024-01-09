@@ -52,5 +52,26 @@
       <p class="bullets">{{ top_headline }}</p>
       {% endfor %}
     </div>
+    <div class="latest_news_container">
+      {% for i in range(0, len_latest) %}
+      <div>
+        <p class="bullets latest_bullets">{{ latest_headlines[i] }}</p>
+        <p class="descriptions latest_descriptions">
+          {{ latest_descriptions[i] }}
+        </p>
+      </div>
+      <img src="{{ latest_images[i] }}" class="latest_images" width="200px" />
+      {% endfor %}
+    </div>
   </body>
 </html>
+
+<div class="top_container">
+  {% for top_headlines_image in top_headlines_images %}
+  <img src="{{ top_headlines_image }}" class="top_images" width="100%" />
+  {% endfor %} {% for top_headline in top_headlines %}
+  <p class="bullets">{{ top_headline }}</p>
+  {% endfor %} {% for top_headline_description in top_headlines_description %}
+  <p class="descriptions">{{ top_headline_description }}</p>
+  {% endfor %}
+</div>
