@@ -72,6 +72,14 @@ nav ul li a:hover {
   animation: fadeIn 1s;
 }
 
+a {
+  text-decoration-line: none;
+}
+
+a:hover {
+  text-decoration-line: underline;
+}
+
 .headings {
   margin-top: 40px;
   font-family: "Abril Fatface", serif;
@@ -85,7 +93,19 @@ nav ul li a:hover {
 }
 
 .descriptions {
+  margin-top: 10px;
   font-size: 0.9rem;
+}
+
+.container-master {
+  padding: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+  grid-gap: 40px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
 }
 
 .top-container {
@@ -99,65 +119,92 @@ nav ul li a:hover {
   margin-top: 50px;
 }
 
-.div0 {
+.div0-top {
   grid-area: 1 / 1 / 4 / 3;
 }
-.div1 {
+.div1-top {
   grid-area: 1 / 3 / 5 / 4;
 }
-.div2 {
+.div2-top {
   grid-area: 1 / 4 / 3 / 5;
 }
-.div3 {
+.div3-top {
   grid-area: 3 / 4 / 5 / 5;
 }
-.div4 {
+.div4-top {
   margin-top: -20px;
   grid-area: 4 / 1 / 5 / 3;
 }
 
-.div4 h1 {
+.div4-top h1 {
   background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%);
   background-clip: text;
   color: transparent;
   font-size: 3.5rem;
 }
 
-.div4 p {
+.div4-top p {
   font-size: 2rem;
 }
 
-/* .div0 {
-  grid-area: 1 / 1 / 5 / 3;
+.div0-master {
+  grid-area: 1 / 1 / 2 / 2;
 }
-.div1 {
-  grid-area: 1 / 3 / 5 / 4;
+.div1-master {
+  grid-area: 1 / 2 / 2 / 3;
 }
-.div2 {
-  grid-area: 1 / 4 / 3 / 5;
+.div2-master {
+  grid-area: 1 / 3 / 2 / 4;
 }
-.div3 {
-  grid-area: 3 / 4 / 5 / 5;
-} */
 
-/* .latest_news_container {
-  padding: 50px;
-  display: grid;
-  grid-template-columns: 0.7fr 0.1fr;
-  grid-auto-flow: row;
+.india-news-container {
+  padding: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
   grid-gap: 40px;
-  margin-top: 50px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
 }
 
-
-.latest_bullets {
-  font-size: 24px;
-  margin-top: 30px;
-  margin-left: 190px;
+.div0-india-news {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.div1-india-news {
+  grid-area: 1 / 2 / 2 / 3;
 }
 
-.latest_descriptions {
-  margin-top: 10px;
-  margin-left: 190px;
-} */
+.div2-india-news {
+  grid-area: 1 / 3 / 2 / 4;
+}
+
+.authors-picks-container {
+  padding: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+  grid-gap: 40px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.div0-authors-picks {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.div1-authors-picks {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.div2-authors-picks {
+  grid-area: 1 / 3 / 2 / 4;
+}
+.div3-authors-picks {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.div4-authors-picks {
+  grid-area: 2 / 2 / 3 / 3;
+}
+.div5-authors-picks {
+  grid-area: 2 / 3 / 3 / 4;
+}
