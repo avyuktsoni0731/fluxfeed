@@ -35,29 +35,94 @@
     <nav>
       <h2 id="website-heading">FluxFeed</h2>
     </nav>
+
     <div>
       <h1 class="headings">TOP HEADLINES</h1>
     </div>
     <div class="top-container">
       {% for i in range(0, 4) %}
-      <div class="div{{i}}">
+      <div class="div{{i}}-top">
         <img
           src="{{ top_headlines_images[i] }}"
-          class="top_images"
+          class="top-images"
           width="100%"
         />
-        <p class="bullets">{{ top_headlines[i] }}</p>
+        <a href="{{ new_top_href[i] }}" target="_blank">
+          <p class="bullets">{{ top_headlines[i] }}</p>
+        </a>
         <p class="descriptions">{{ top_headlines_description[i] }}</p>
       </div>
       {% endfor %}
-      <div class="div4">
+      <div class="div4-top">
         <h1>Hey There!</h1>
         <p>Hope You're Having a Good Day!</p>
       </div>
     </div>
     <hr />
     <div>
-      <h1 class="headings">LATEST HEADLINES</h1>
+      <h1 class="headings">NEWS</h1>
     </div>
+    <div class="news-container container-master">
+      {% for i in range(0, 3) %}
+      <div class="div{{i}}-master">
+        <img src="{{ news_images[i] }}" class="news-images" width="100%" />
+        <a href="{{ news_href[i] }}" target="_blank">
+          <p class="bullets">{{ news_headlines[i] }}</p>
+        </a>
+        <p class="descriptions">{{ news_descriptions[i] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      <h1 class="headings">SPORTS</h1>
+    </div>
+    <div class="sports-container container-master">
+      {% for i in range(0, 3) %}
+      <div class="div{{i}}-master">
+        <img src="{{ sports_images[i] }}" class="sports-images" width="100%" />
+        <a href="{{ sports_href[i] }}" target="_blank">
+          <p class="bullets">{{ sports_headlines[i] }}</p>
+        </a>
+        <p class="descriptions">{{ sports_descriptions[i] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      <h1 class="headings">INDIA NEWS</h1>
+    </div>
+    <div class="india-news-container">
+      {% for i in range(0, 3) %}
+      <div class="div{{i}}-india-news">
+        <img
+          src="{{ india_news_images[i] }}"
+          class="india-news-images"
+          width="100%"
+        />
+        <a href="{{ india_news_href[i] }}" target="_blank">
+          <p class="bullets">{{ india_news_headlines[i] }}</p>
+        </a>
+        <p class="descriptions">{{ india_news_descriptions[i] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      <h1 class="headings">AUTHOR's PICKS</h1>
+    </div>
+    <div class="authors-picks-container">
+      {% for i in range(0, 6) %}
+      <div class="div{{i}}-authors-picks">
+        <img
+          src="{{ authors_picks_images[i] }}"
+          class="authors-picks-news-images"
+          width="100%"
+        />
+        <a href="{{ authors_picks_href[i] }}" target="_blank">
+          <p class="bullets">{{ authors_picks_headlines[i] }}</p>
+        </a>
+        <p class="descriptions">{{ authors_picks_descriptions[i] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <hr />
   </body>
 </html>
