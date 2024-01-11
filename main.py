@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
+from selenium import webdriver
+import time
 
 news_sources = [
     'https://www.nytimes.com/section/world',
@@ -20,6 +21,7 @@ news_sources2 = [
 ]
 
 url = 'https://www.nytimes.com/section/world'
+url2 = 'https://www.bbc.com/'
 
 # for url
 all_headlines = []
@@ -29,18 +31,30 @@ top_headlines_images = []
 latest_images = []
 latest_headlines = []
 latest_descriptions = []
+all_top_href = []
+new_top_href = []
 
 # for url2
 all_images_list = []
 all_headlines_list = []
-news_headlines = []
-sports_headlines = []
-india_news_headlines = []
-authors_picks_headlines = []
+all_descriptions_list = []
 news_images = []
 sports_images = []
 india_news_images = []
 authors_picks_images = []
+news_headlines = []
+sports_headlines = []
+india_news_headlines = []
+authors_picks_headlines = []
+news_descriptions = []
+sports_descriptions = []
+india_news_descriptions = []
+authors_picks_descriptions = []
+all_href_list = []
+news_href = []
+sports_href = []
+india_news_href = []
+authors_picks_href = []
 
 
 # def of url
@@ -58,20 +72,65 @@ def scrape_descriptions(url):
     descriptions = soup.find_all('p', class_='css-tskdi9')
     return [description.text.strip() for description in descriptions]
 
+def scrape_top_href(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    all_descriptions = soup.find_all('a', class_='css-14u258h')
+    return all_descriptions
 
 # def of url2
-def scrape_all_images(url2):
-    response = requests.get(url2)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    all_images = soup.find_all('img', class_='image-replace')
-    return all_images
-
 def scrape_all_headlines(url2):
     response = requests.get(url2)
     soup = BeautifulSoup(response.text, 'html.parser')
     all_headlines = soup.find_all('a', class_='media__link')
     return [all_headline.text.strip() for all_headline in all_headlines]
+
+def scrape_all_href(url2):
+    response = requests.get(url2)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    all_descriptions = soup.find_all('a', class_='media__link')
+    return all_descriptions
     
+def scrape_all_descriptions(url2):
+    response = requests.get(url2)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    all_descriptions = soup.find_all('p', class_='media__summary')
+    return [all_description.text.strip() for all_description in all_descriptions]
+
+    
+## all images
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+
+driver = webdriver.Chrome(options=chrome_options)
+driver.get(url2)
+
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(0.1)
+html_content = driver.page_source
+driver.quit()
+
+soup2 = BeautifulSoup(html_content, 'html5lib')
+
+all_images = soup2.find_all('img', class_='image-replace')
+for image_tag in all_images:
+    all_images_list.append(image_tag['src'])
+
+### News images
+for i in range(5, 8):
+    news_images.append(all_images_list[i])
+    
+### Sport images
+for i in range(8, 11):
+    sports_images.append(all_images_list[i])
+
+### India News images
+for i in range(15, 19):
+    india_news_images.append(all_images_list[i])
+
+### Authors Picks images
+for i in range(20, 26):
+    authors_picks_images.append(all_images_list[i])
 
 ## all headlines
 for source in news_sources2:
@@ -90,21 +149,65 @@ for i in range(8, 11):
 for i in range(11, 15):
     india_news_headlines.append(all_headlines_list[i])
 
-### Author's Picks
+### Author's Picks headlines
 for i in range(16, 22):
     authors_picks_headlines.append(all_headlines_list[i])
-
-## all images
-response2 = requests.get(news_sources2[0])
-soup2 = BeautifulSoup(response2.content, 'html.parser')
-
-all_images = soup2.find_all('img')
-for image_tag in all_images:
-    all_images_list.append(image_tag['src'])
     
-### News images
-for i in range(6, 9):
-    news_images.append(all_images_list[i])
+    
+## all hrefs
+for i in scrape_all_href(url2):
+    all_href_list.append(i['href'])
+    
+### News hrefs
+for i in range(5, 8):
+    news_href.append('https://www.bbc.com'+all_href_list[i])
 
+### Sport hrefs
+for i in range(8, 11):
+    sports_href.append('https://www.bbc.com'+all_href_list[i])
+
+### India News hrefs
+for i in range(11, 15):
+    india_news_href.append('https://www.bbc.com'+all_href_list[i])
+
+### Author's Picks hrefs
+for i in range(16, 22):
+    authors_picks_href.append(all_href_list[i])
+    
+    
+## all descriptions
+for source in news_sources2:
+    all_description = scrape_all_descriptions(source)
+    all_descriptions_list.extend(all_description)
+
+### News descriptions
+for i in range(1, 4):
+    news_descriptions.append(all_descriptions_list[i])
+
+### Sports descriptions
+for i in range(4, 7):
+    sports_descriptions.append(all_descriptions_list[i])
+
+### India News descriptions
+for i in range(7, 11):
+    india_news_descriptions.append(all_descriptions_list[i])
+
+### Author's Picks descriptions
+for i in range(12, 18):
+    authors_picks_descriptions.append(all_descriptions_list[i])
 
 ############# test ##############
+
+## top hrefs
+for i in scrape_top_href(url):
+    all_top_href.append(i['href'])
+    
+for i in range(1, 4):
+    new_top_href.append("https://www.nytimes.com"+all_top_href[i])
+    
+new_top_href.insert(0, all_top_href[0])
+
+
+# print(india_news_descriptions)
+# print(authors_picks_descriptions)
+print(india_news_images)
