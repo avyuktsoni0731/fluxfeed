@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./static/style.css" />
+    <script src="./static/script.js"></script>
     <title>News Headline Aggregator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,9 +34,14 @@
   </head>
   <body>
     <nav>
-      <h2 id="website-heading">FluxFeed</h2>
+      <h2><a href="#" id="website-heading">FluxFeed</a></h2>
+      <ul>
+        <li><a href="#news">NEWS</a></li>
+        <li><a href="#sports">SPORTS</a></li>
+        <li><a href="#india-news">INDIA NEWS</a></li>
+        <li><a href="#authors-picks">AUTHOR's PICKS</a></li>
+      </ul>
     </nav>
-
     <div>
       <h1 class="headings">TOP HEADLINES</h1>
     </div>
@@ -60,7 +66,7 @@
     </div>
     <hr />
     <div>
-      <h1 class="headings">NEWS</h1>
+      <h1 class="headings" id="news">NEWS</h1>
     </div>
     <div class="news-container container-master">
       {% for i in range(0, 3) %}
@@ -74,7 +80,7 @@
       {% endfor %}
     </div>
     <div>
-      <h1 class="headings">SPORTS</h1>
+      <h1 class="headings" id="sports">SPORTS</h1>
     </div>
     <div class="sports-container container-master">
       {% for i in range(0, 3) %}
@@ -88,7 +94,7 @@
       {% endfor %}
     </div>
     <div>
-      <h1 class="headings">INDIA NEWS</h1>
+      <h1 class="headings" id="india-news">INDIA NEWS</h1>
     </div>
     <div class="india-news-container">
       {% for i in range(0, 3) %}
@@ -106,7 +112,7 @@
       {% endfor %}
     </div>
     <div>
-      <h1 class="headings">AUTHOR's PICKS</h1>
+      <h1 class="headings" id="authors-picks">AUTHOR's PICKS</h1>
     </div>
     <div class="authors-picks-container">
       {% for i in range(0, 6) %}
