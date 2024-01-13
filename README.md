@@ -8,7 +8,7 @@
 
 ## Overview
 
-- FluxFeed is a dynamic web-based news aggregator that empowers users to stay informed with the latest headlines from diverse news sources. It uses Python, HTML, CSS, JavaScript, and the Flask web framework. FluxFeed not only delivers top headlines but also offers curated sections and a user-friendly interface.
+- FluxFeed is a dynamic web-based news aggregator that empowers users to stay informed with the latest headlines, from diverse news sources, which keeps on updating every few seconds as the news on the source website gets updated. It uses Python, HTML, CSS, JavaScript, and the Flask web framework. FluxFeed not only delivers top headlines but also offers curated sections and a user-friendly interface.
 
 - This is a web-scrapping project that extracts the latest news headlines from the top news providers around the world, namely **The New York Times** and **BBC**.
 
