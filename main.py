@@ -75,7 +75,8 @@ def scrape_descriptions(url):
 def scrape_top_href(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    all_descriptions = soup.find_all('a', class_='css-14u258h')
+    # all_descriptions = soup.find_all('a', class_='css-14u258h')
+    all_descriptions = soup.find_all('a', class_='css-1u3p7j1')
     return all_descriptions
 
 # def of url2
@@ -208,6 +209,4 @@ for i in range(1, 4):
 new_top_href.insert(0, all_top_href[0])
 
 
-# print(india_news_descriptions)
-# print(authors_picks_descriptions)
-print(india_news_images)
+print(all_headlines)

@@ -27,6 +27,19 @@ news_sources2 = [
 url = 'https://www.nytimes.com/section/world'
 url2 = 'https://www.bbc.com/'
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+
+driver = webdriver.Chrome(options=chrome_options)
+driver.get(url2)
+
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(0.1)
+html_content = driver.page_source
+driver.quit()
+
+soup2 = BeautifulSoup(html_content, 'html5lib')
+
 # for url
 all_headlines = []
 top_headlines = []
@@ -64,7 +77,7 @@ authors_picks_href = []
 def scrape_headlines(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    headlines = soup.find_all('a', class_='css-14u258h')
+    headlines = soup.find_all('a', class_='css-1u3p7j1')
     return [headline.text.strip() for headline in headlines]
 
 def scrape_descriptions(url):
@@ -76,7 +89,7 @@ def scrape_descriptions(url):
 def scrape_top_href(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    all_descriptions = soup.find_all('a', class_='css-14u258h')
+    all_descriptions = soup.find_all('a', class_='css-1u3p7j1')
     return all_descriptions
 
 # def of url2
@@ -131,18 +144,7 @@ new_top_href.insert(0, all_top_href[0])
 
 ## url2
 ## all images
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-
-driver = webdriver.Chrome(options=chrome_options)
-driver.get(url2)
-
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-time.sleep(0.1)
-html_content = driver.page_source
-driver.quit()
-
-soup2 = BeautifulSoup(html_content, 'html5lib')
+#################
 
 all_images = soup2.find_all('img', class_='image-replace')
 for image_tag in all_images:
@@ -228,7 +230,6 @@ for i in range(12, 18):
     authors_picks_descriptions.append(all_descriptions_list[i])
     
     
-
 
 @app.route('/')
 def index():
